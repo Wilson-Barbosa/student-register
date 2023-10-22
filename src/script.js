@@ -35,6 +35,7 @@ const periodArray = [
         id: 3,
         period: "Evening",
     },
+
 ];
 
 //array of students where their data will be stored
@@ -43,7 +44,7 @@ let studentArray = [
         id: 1,
         name: "Paulo de Tarso",
         email: "paulo@gmail.com",
-        phoneNumber: 11654557892,
+        phoneNumber: "(11) 65455-7892",
         course: 2,
         period: 1,
     },
@@ -51,7 +52,7 @@ let studentArray = [
         id: 2,
         name: "Juliana Oliveira",
         email: "juliana@hotmail.com",
-        phoneNumber: 11879713274,
+        phoneNumber: "(15) 89915-5677",
         course: 1,
         period: 3,
     },
@@ -59,7 +60,7 @@ let studentArray = [
         id: 3,
         name: "Francisco Bianchi",
         email: "bianchi@hotmail.com",
-        phoneNumber: 19879768713,
+        phoneNumber: "(19) 78455-2314",
         course: 3,
         period: 2,
     }
@@ -67,7 +68,47 @@ let studentArray = [
 
 
 
+
 /* ----------------- FUNCTIONS ----------------- */
+
+//function that captures the information on the form
+function grab_info_form() {
+
+    /* this function iterates the nodeList of periods and returns the value of the selected one
+    the value is assign later to the period property */
+    function selectPeriod() {
+        let periodNodelist = document.getElementsByName("classPeriod");
+
+        for (let n = 0; n < periodNodelist.length; n++) {
+            if (periodNodelist[n].checked) {
+                return periodNodelist[n].value;
+            }
+        }
+    }
+
+    let newStudent = {
+
+        id: studentArray.length + 1,
+        name: document.getElementById("inputName").value,
+        email: document.getElementById("inputEmail").value,
+        phoneNumber: document.getElementById("phoneNumber").value,
+        course: document.getElementById("courseSelection").value,
+        period: selectPeriod()
+
+    };
+
+
+    //pushes the new student's info to the studentArray
+    //the insertion happens even without this push, but I'm gonna put this in here just to be cool
+    studentArray.push(newStudent);
+
+    //sends the info to the screen
+    gets_one_student_info(newStudent);
+
+    //reseting the form
+    document.getElementById("student-form").reset();
+}
+
 
 //takes ONE student data and shows it on the screen
 function gets_one_student_info(student) {
@@ -101,7 +142,7 @@ function gets_one_student_info(student) {
 
     //inserts the matching period
     for (let j = 0; j < periodArray.length; j++) {
-        if (student.course == periodArray[j].id) {
+        if (student.period == periodArray[j].id) {
             let newPeriod = document.createTextNode(periodArray[j].period);
             newRow.insertCell().appendChild(newPeriod);
         }
@@ -117,7 +158,10 @@ function load_all_students() {
     }
 }
 
-/* ----------------- Info displayed on page load ----------------- */
 
-//load all students information to the screen
+
+
+/* ----------------- Info displayed on screen ----------------- */
+
+//load all students information to the screen when the page is loaded
 load_all_students();
