@@ -126,11 +126,15 @@ function gets_one_student_info(student) {
 
     //inserting email
     let newEmail = document.createTextNode(student.email);
-    newRow.insertCell().appendChild(newEmail);
+    let emailCell = newRow.insertCell();
+    emailCell.className = 'd-none d-md-table-cell';
+    emailCell.appendChild(newEmail);
 
     //inserting phone number
     let newPhone = document.createTextNode(student.phoneNumber);
-    newRow.insertCell().appendChild(newPhone);
+    let phoneCell = newRow.insertCell();
+    phoneCell.className = 'd-none d-lg-table-cell';
+    phoneCell.appendChild(newPhone);
 
     //inserts the matching course
     for (let j = 0; j < courseArray.length; j++) {
